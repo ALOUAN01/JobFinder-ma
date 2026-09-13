@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Poste Radar — Emploi IT au Maroc</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F3F5F8;
+    --bg-soft: #EAEEF3;
+    --surface: #FFFFFF;
+    --ink: #131A24;
+    --ink-soft: #5C6B7A;
+    --ink-faint: #8C99A6;
+    --line: #E1E6EC;
+    --line-strong: #CBD3DC;
+    --navy: #0F2A38;
+    --navy-deep: #0A1D28;
+    --teal: #147D82;
+    --teal-deep: #0E5A5E;
+    --teal-bright: #17A2A8;
+    --amber: #E08A2C;
+    --amber-deep: #B96B1A;
+    --amber-soft: #FCEFDC;
+    --ok: #2F8558;
+    --radius: 10px;
+    --shadow-sm: 0 1px 2px rgba(15, 42, 56, 0.06);
+    --shadow-md: 0 6px 20px -6px rgba(15, 42, 56, 0.16);
+    --shadow-lift: 0 10px 30px -10px rgba(15, 42, 56, 0.22);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    background-image:
+      radial-gradient(760px 380px at 8% -10%, rgba(20, 125, 130, 0.10), transparent 60%),
+      radial-gradient(600px 320px at 100% 0%, rgba(224, 138, 44, 0.08), transparent 55%);
+    background-repeat: no-repeat;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 24px 96px; }
+
+  /* --- Top bar ------------------------------------------------------- */
+  .topbar {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 22px 24px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand-mark {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: linear-gradient(145deg, var(--teal-bright), var(--navy));
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: var(--shadow-sm);
+  }
+  .brand-mark svg { width: 17px; height: 17px; }
+  .brand-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 15.5px;
+    letter-spacing: -0.01em;
+    color: var(--navy-deep);
+  }
+  .brand-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .badge-live {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--teal-deep);
+    background: #E4F2F1;
+    border: 1px solid #CDE7E4;
+    padding: 5px 10px 5px 8px;
+    border-radius: 100px;
+  }
+  .badge-live .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--ok);
+    box-shadow: 0 0 0 3px rgba(47, 133, 88, 0.18);
+  }
+
+  /* --- Hero ------------------------------------------------------------ */
+  header.hero { padding: 40px 0 30px; }
+  header.hero .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--teal-deep);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 0 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  header.hero .eyebrow::before {
+    content: '';
+    width: 18px; height: 1px;
+    background: var(--teal);
+  }
+  header.hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 40px;
+    line-height: 1.08;
+    margin: 0 0 12px;
+    letter-spacing: -0.02em;
+    color: var(--navy-deep);
+  }
+  header.hero p {
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    margin: 0 0 22px;
+    max-width: 58ch;
+  }
+  .stat-row { display: flex; gap: 26px; flex-wrap: wrap; }
+  .stat { display: flex; flex-direction: column; gap: 2px; }
+  .stat b {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 21px;
+    color: var(--navy-deep);
+    letter-spacing: -0.01em;
+  }
+  .stat span {
+    font-size: 11.5px;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+  }
+
+  /* --- Panels ----------------------------------------------------------- */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 26px;
+    margin-bottom: 22px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .field-label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+  .chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    padding: 8px 13px;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    background: var(--surface);
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color .15s, background .15s, color .15s, transform .1s;
+    user-select: none;
+  }
+  .chip:hover { border-color: var(--teal-bright); color: var(--teal-deep); }
+  .chip:active { transform: scale(0.97); }
+  .chip.active {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: #fff;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .row { display: flex; gap: 12px; flex-wrap: wrap; }
+  select, input[type=text] {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    padding: 11px 13px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--ink);
+    flex: 1;
+    min-width: 180px;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  select:focus, input:focus {
+    outline: none;
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(20, 125, 130, 0.14);
+  }
+
+  button.go {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 11px 26px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(155deg, var(--amber), var(--amber-deep));
+    color: #2A1400;
+    cursor: pointer;
+    box-shadow: 0 4px 14px -4px rgba(224, 138, 44, 0.55);
+    transition: transform .12s, box-shadow .12s, filter .12s;
+    white-space: nowrap;
+  }
+  button.go:hover { filter: brightness(1.04); transform: translateY(-1px); }
+  button.go:active { transform: translateY(0); }
+  button.go:disabled {
+    background: #E6D3B8; color: #a08a63; cursor: default;
+    box-shadow: none; transform: none;
+  }
+
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    margin: 40px 0 14px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    color: var(--navy-deep);
+  }
+  .section-title .count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--teal-deep);
+    font-weight: 500;
+    background: #E4F2F1;
+    padding: 2px 8px;
+    border-radius: 100px;
+  }
+
+  .job-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: flex-start;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow .15s, border-color .15s, transform .15s;
+    position: relative;
+    overflow: hidden;
+  }
+  .job-card::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--teal-bright), var(--teal-deep));
+  }
+  .job-card:hover {
+    box-shadow: var(--shadow-lift);
+    border-color: var(--line-strong);
+    transform: translateY(-1px);
+  }
+  .job-card a.title {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 15px;
+  }
+  .job-card a.title:hover { color: var(--teal-deep); text-decoration: underline; }
+  .job-meta { color: var(--ink-soft); font-size: 13px; margin-top: 4px; }
+  .job-src {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--teal-deep);
+    background: #E4F2F1;
+    padding: 4px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+    align-self: center;
+    border: 1px solid #CDE7E4;
+  }
+
+  .site-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+    gap: 10px;
+  }
+  .site-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 15px 16px;
+    text-decoration: none;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow .15s, border-color .15s, transform .15s;
+  }
+  .site-card:hover {
+    border-color: var(--amber);
+    box-shadow: var(--shadow-lift);
+    transform: translateY(-1px);
+  }
+  .site-card .dot {
+    flex: none;
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    background: linear-gradient(155deg, var(--teal-bright), var(--navy));
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 12.5px;
+  }
+  .site-card .name { font-weight: 600; font-size: 14px; }
+  .site-card .note { color: var(--ink-soft); font-size: 12px; margin-top: 2px; }
+
+  .empty, .notice {
+    color: var(--ink-soft);
+    font-size: 13.5px;
+    padding: 16px 18px;
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px dashed var(--line-strong);
+  }
+  .notice {
+    background: var(--amber-soft);
+    border: 1px solid #EBCEA0;
+    border-style: solid;
+  }
+  .notice a { color: var(--teal-deep); }
+
+  footer {
+    margin-top: 52px;
+    color: var(--ink-faint);
+    font-size: 12.5px;
+    border-top: 1px solid var(--line);
+    padding-top: 18px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  @media (max-width: 640px) {
+    header.hero h1 { font-size: 30px; }
+    .panel { padding: 20px; }
+    .job-card { flex-direction: column; }
+    .job-src { align-self: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <div class="brand-mark">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="9" stroke="white" stroke-width="1.6"/>
+        <circle cx="12" cy="12" r="2.4" fill="white"/>
+        <path d="M12 3v3.2M21 12h-3.2M12 21v-3.2M3 12h3.2" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div>
+      <div class="brand-name">Poste Radar</div>
+      <div class="brand-tag">Emploi IT · Maroc</div>
+    </div>
+  </div>
+  <span class="badge-live"><span class="dot"></span>Instance locale</span>
+</div>
+
+<div class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Agrégateur d'offres tech</p>
+    <h1>Trouve le poste IT qu'il te faut, sans ouvrir vingt onglets.</h1>
+    <p>Poste Radar centralise Indeed, LinkedIn et Glassdoor via l'API JSearch, et te donne des liens déjà filtrés vers Rekrute, Emploi.ma, ANAPEC, Wetech et le reste de l'écosystème marocain — en une seule recherche.</p>
+    <div class="stat-row">
+      <div class="stat"><b>20+</b><span>Plateformes couvertes</span></div>
+      <div class="stat"><b>9</b><span>Domaines IT prédéfinis</span></div>
+      <div class="stat"><b>1 clic</b><span>Recherche multi-source</span></div>
+    </div>
+  </header>
+
+  <div class="panel">
+    <span class="field-label">Domaine</span>
+    <div class="chip-row" id="domainChips"></div>
+
+    <div class="row">
+  <select id="citySelect"></select>
+  <input type="text" id="customInput" placeholder="ou recherche libre, ex: DevOps Kubernetes" style="display:none;">
+  <button class="go" id="goBtn">Chercher</button>
+</div>
+<label style="display:flex;align-items:center;gap:8px;margin-top:12px;font-size:13px;color:var(--ink-soft);">
+  <input type="checkbox" id="includeAggregated">
+  Inclure les résultats agrégés (Indeed / LinkedIn / Glassdoor) — utilise le quota API
+</label>
+  </div>
+
+  <div id="apiNotice"></div>
+
+  <div class="section-title">Résultats agrégés <span class="count" id="jsearchCount"></span></div>
+  <div id="jsearchResults"><p class="empty">Choisis un domaine et une ville, puis clique sur "Chercher".</p></div>
+
+  <div class="section-title">Recherche directe par plateforme</div>
+  <div class="site-grid" id="siteLinks"></div>
+
+  <footer>
+    <span>Poste Radar tourne en local sur ta machine.</span>
+    <span>Résultats JSearch : clé API gratuite requise (voir README) · liens directs toujours actifs.</span>
+  </footer>
+</div>
+
+<script>
+let DOMAINS = {};
+let selectedDomain = 'java';
+
+async function init() {
+  const res = await fetch('/api/domains');
+  const data = await res.json();
+  DOMAINS = data.domains;
+
+  const chipRow = document.getElementById('domainChips');
+  Object.entries(DOMAINS).forEach(([key, val]) => {
+    const chip = document.createElement('div');
+    chip.className = 'chip' + (key === selectedDomain ? ' active' : '');
+    chip.textContent = val.label;
+    chip.dataset.key = key;
+    chip.onclick = () => selectDomain(key);
+    chipRow.appendChild(chip);
+  });
+
+  const citySelect = document.getElementById('citySelect');
+  const allOpt = document.createElement('option');
+  allOpt.value = '';
+  allOpt.textContent = 'Toutes villes';
+  citySelect.appendChild(allOpt);
+  data.cities.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c;
+    opt.textContent = c;
+    citySelect.appendChild(opt);
+  });
+
+  const health = await (await fetch('/api/health')).json();
+  if (!health.hasApiKey) {
+    document.getElementById('apiNotice').innerHTML =
+      '<p class="notice">Clé JSearch absente — les résultats Indeed/LinkedIn agrégés sont désactivés pour l\'instant. Les liens directs plus bas fonctionnent quand même. Voir le README pour ajouter une clé gratuite.</p>';
+  }
+}
+
+function selectDomain(key) {
+  selectedDomain = key;
+  document.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c.dataset.key === key));
+  document.getElementById('customInput').style.display = key === 'custom' ? 'block' : 'none';
+}
+
+async function runSearch() {
+  const city = document.getElementById('citySelect').value;
+  const custom = document.getElementById('customInput').value.trim();
+  const includeAggregated = document.getElementById('includeAggregated')?.checked || false;
+  const btn = document.getElementById('goBtn');
+  btn.disabled = true;
+  btn.textContent = 'Recherche...';
+
+  const params = new URLSearchParams({
+    domain: selectedDomain,
+    city,
+    includeAggregated: String(includeAggregated)
+  });
+  if (selectedDomain === 'custom' && custom) params.set('custom', custom);
+
+  try {
+    const res = await fetch('/api/search?' + params.toString());
+    
+    const data = await res.json();
+    renderJSearch(data.jsearch);
+    renderSiteLinks(data.moroccoLinks);
+  } catch (e) {
+    document.getElementById('jsearchResults').innerHTML =
+      '<p class="empty">Erreur de connexion au serveur local. Vérifie que "npm start" tourne bien.</p>';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Chercher';
+  }
+}
+
+function renderJSearch(result) {
+  const container = document.getElementById('jsearchResults');
+  const countEl = document.getElementById('jsearchCount');
+  if (!result || result.error === 'not_requested') {
+    container.innerHTML = '<p class="empty">Coche "Inclure les résultats agrégés" ci-dessus pour interroger Indeed/LinkedIn/Glassdoor (consomme le quota API gratuit).</p>';
+    countEl.textContent = '';
+    return;
+  }
+  if (result.error === 'no_api_key') {
+    container.innerHTML = '<p class="empty">Ajoute une clé RapidAPI dans .env pour activer cette section (gratuit, voir README).</p>';
+    countEl.textContent = '';
+    return;
+  }
+  if (result.error === 'rate_limited') {
+    container.innerHTML = '<p class="empty">Quota API atteint pour l\'instant — réessaie dans quelques minutes, ou utilise les liens directs ci-dessous.</p>';
+    countEl.textContent = '';
+    return;
+  }
+  if (result.error || !result.jobs || result.jobs.length === 0) {
+    container.innerHTML = '<p class="empty">Aucun résultat trouvé pour cette combinaison. Essaie une autre ville ou "Toutes villes".</p>';
+    countEl.textContent = '';
+    return;
+  }
+  countEl.textContent = result.jobs.length + ' offre(s)';
+  container.innerHTML = result.jobs.map(j => `
+    <div class="job-card">
+      <div>
+        <a class="title" href="${j.url}" target="_blank" rel="noopener">${escapeHtml(j.title)}</a>
+        <div class="job-meta">${escapeHtml(j.company || 'Entreprise non précisée')} · ${escapeHtml(j.city)}${j.remote ? ' · Remote' : ''}</div>
+      </div>
+      <div class="job-src">${escapeHtml(j.source)}</div>
+    </div>
+  `).join('');
+}
+
+function renderSiteLinks(links) {
+  const grid = document.getElementById('siteLinks');
+  grid.innerHTML = (links || []).map(l => `
+    <a class="site-card" href="${l.url}" target="_blank" rel="noopener">
+      <div class="dot">${escapeHtml((l.name || '?').slice(0, 2).toUpperCase())}</div>
+      <div>
+        <div class="name">${escapeHtml(l.name)}</div>
+        <div class="note">${escapeHtml(l.note)}</div>
+      </div>
+    </a>
+  `).join('');
+}
+
+function escapeHtml(str) {
+  return String(str ?? '').replace(/[&<>"']/g, m => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  })[m]);
+}
+
+document.getElementById('goBtn').addEventListener('click', runSearch);
+init();
+</script>
+</body>
+</html>
