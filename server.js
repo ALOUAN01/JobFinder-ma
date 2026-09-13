@@ -3,6 +3,8 @@ const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
 const NodeCache = require('node-cache');
+const path = require('path');   // <-- ajouter cette ligne
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,6 +15,10 @@ const cache = new NodeCache({ stdTTL: 900 }); // 15 min cache to save API quota
 app.use(cors());
 app.use(express.static('public'));
 app.use(express.json());
+// --- Page d'accueil (nécessaire car express.static() est ignoré sur Vercel) ---
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 // --- Domain presets -------------------------------------------------------
 // Each domain maps to the search terms used across every source.
